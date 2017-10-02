@@ -1,0 +1,215 @@
+<apex:page standardController="Contact" recordSetVar="contacts">
+
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <style>
+        #main{v
+        width: 1000px;
+        height: 1200px;
+        border: 1px solid;
+    	}
+    
+        #header{
+            width: 1000px;
+            height: 150px;
+            background: 
+            text-align: left;
+            
+            border: 1px solid;
+        }
+        #menu{
+            width: 1000px;
+            height: 50px;
+            background-color:  #3b4d95;
+            text-align: left;
+            border: 1px solid;
+        }
+        
+        #section{
+            width: 1000px;
+            height: auto;
+            list-style-type:none;
+            text-align: left;
+            float:left;
+            border: 1px solid;
+        }
+       
+        #footer{
+            width: 1000px;
+            height: 100px;
+            background-color:  orange;
+            text-align: left;
+            float:left;
+            border: 1px solid;
+        }
+           .nav{
+	  list-style-type:none;
+      margin: auto;
+    }
+
+    .nav>li{
+        float: left;
+        margin-right: 0px;
+        background-color: #3b4d95;
+        border-radius:0px;
+    }
+
+    .nav>li>a{
+        text-transform: uppercase;
+        color: white;
+    }
+
+    .nav li a{
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .nav li a:hover{
+        text-decoration: none;
+        color: black;
+        background-color: #445e91;
+    }
+
+    .nav li{
+        position: relative;
+    }
+
+    .nav li a{
+        padding: 15px;
+        line-height: 20px;
+        display: inline-block;
+    }
+
+    .nav .sub-menu{
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        width: 200px;
+        background-color:#C0B7C5;
+        padding: 5px 20px;
+        list-style-type:none;
+        
+    }
+
+    .nav li:hover>.sub-menu{
+        display: inline-block;
+        background-color: #3b4d95;
+        width: 400px;
+    }
+
+    .nav>li>.sub-menu{
+        top: 50px;
+        left: 0;
+    }
+    
+    .nav ul li a{
+      color: white;
+      background-color: #3b4d95;
+    }
+        </style>
+    </head>
+    
+    <body>
+        <div id="main">
+            <div id="header">
+                <apex:image 
+                 url="{!URLFOR($Resource.jQueryMobile2, 'images/phuongphap.jpg')}" width="1000px" height="150px"/>
+                
+            </div>
+            <div id="menu">
+                <ul class="nav">
+         
+                   
+                     
+                    <li>
+                      <a href="#">Trang chủ</a>
+                    </li>
+                     
+                    <li>
+                      <a href="#">Nhân Viên</a>
+                    </li>
+                     
+                    
+                     
+                    <li><a href="#">Tài khoản</a></li>
+                     
+                </ul>
+                        </div>
+            
+            <div id="section">
+                <apex:form >
+
+       			 <apex:pageBlock title="Contacts List" id="contacts_list">
+        
+                        Filter: 
+                        <apex:selectList value="{! filterId }" size="1">
+                            <apex:selectOptions value="{! listViewOptions }"/>
+                            <apex:actionSupport event="onchange" reRender="contacts_list"/>
+                        </apex:selectList>
+            
+                        <!-- Contacts List -->
+                        <apex:pageBlockTable value="{! contacts }" var="ct">   
+                            
+                        
+                            <apex:column value="{! ct.FirstName }"/>
+                            <apex:column value="{! ct.LastName }"/>
+                            <apex:column value="{! ct.Title }"/>
+                            <apex:column value="{! ct.Email }"/>
+                            <apex:column value="{! ct.Account.Name }"/>
+                            
+                            
+                        </apex:pageBlockTable>
+                            <!-- Pagination -->
+                            <table style="width: 100%"><tr>
+                            
+                                <td>
+                                    Page: <apex:outputText value=" {!PageNumber} of {! CEILING(ResultSize / PageSize) }"/>
+                                </td>            
+                            
+                                <td align="center">
+                                    <!-- Previous page -->
+                                    <!-- active -->
+                                    <apex:commandLink action="{! Previous }" value="<< Previous"
+                                         rendered="{! HasPrevious }"/>
+                                    <!-- inactive (no earlier pages) -->
+                                    <apex:outputText style="color: #ccc;" value="<< Previous"
+                                         rendered="{! NOT(HasPrevious) }"/>
+                                    
+                                    &nbsp;&nbsp;  
+                                    
+                                    <!-- Next page -->
+                                    <!-- active -->
+                                    <apex:commandLink action="{! Next }" value="Next >>"
+                                         rendered="{! HasNext }"/>
+                                    <!-- inactive (no more pages) -->
+                                    <apex:outputText style="color: #ccc;" value="Next >>"
+                                         rendered="{! NOT(HasNext) }"/>
+                                </td>
+                                
+                                <td align="right">
+                                    Records per page:
+                                    <apex:selectList value="{! PageSize }" size="1">
+                                        <apex:selectOption itemValue="5" itemLabel="5"/>
+                                        <apex:selectOption itemValue="20" itemLabel="20"/>
+                                        <apex:actionSupport event="onchange" reRender="contacts_list"/>
+                                    </apex:selectList>
+                                </td>
+                            
+                            </tr></table>
+                    </apex:pageBlock>
+            
+                </apex:form>
+            </div>
+            
+            
+            
+             <div id="footer">
+                footer
+            </div>
+        </div>
+    </body>
+</html>
+   
+</apex:page>
