@@ -1,0 +1,26 @@
+public class NVcontroller {
+   public List<NhanVien__c> NhanViens;
+
+  public Boolean showNhanViens{get;set;}
+    
+public NVcontroller(ApexPages.StandardController stdController){
+        
+    	 showNhanViens = true;
+        }
+    
+        
+   Public List<NhanVien__c> GetRecordFetching(){
+
+       NhanViens =  new List<NhanVien__c>();
+    
+       List<NhanVien__c> listitem = [select idnhanvien__c, TenNV__c, ChucVuNV__c,EmailNV__c from NhanVien__c ORDER BY idnhanvien__c];
+    
+        if(listitem.size() > 0)
+        {
+                NhanViens.addall(listitem);        
+        }    
+                  return NhanViens;
+   }
+    
+   
+}
