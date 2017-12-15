@@ -1,0 +1,70 @@
+public class NVcontroller {
+   public List<NhanVien__c> NhanViens;
+	public string manv{get;set;}
+    public string ten{get;set;}
+    public string cvu{get;set;}
+    public string mail{get;set;}
+  public Boolean showNhanViens{get;set;}
+    
+public NVcontroller(ApexPages.StandardController stdController){
+        
+    	 showNhanViens = true;
+        }
+    
+        public void themnv()
+                {
+                NhanVien__c nv= new NhanVien__c();
+                
+                nv.idnhanvien__c = manv;
+                nv.TenNV__c = ten;
+                nv.ChucVuNV__c = cvu;
+                nv.EmailNV__c = mail;
+                insert nv;
+               	
+                }
+    public void xoanv()
+                {
+                NhanVien__c nv= new NhanVien__c();
+                
+                for(NhanVien__c i : NhanViens)
+                {
+                    if(i.idnhanvien__c == manv)
+                    {
+                        nv = i;
+                    }
+                }
+                delete nv;
+               
+                }
+    public void suanv()
+                {
+                NhanVien__c nv= new NhanVien__c();
+                
+                for(NhanVien__c i : NhanViens)
+                {
+                    if(i.idnhanvien__c == manv)
+                    {
+                        nv = i;
+                    }
+                }
+                nv.TenNV__c = ten;
+                nv.ChucVuNV__c = cvu;
+                nv.EmailNV__c = mail;
+                update nv;
+               
+                }
+   Public List<NhanVien__c> GetRecordFetching(){
+
+       NhanViens =  new List<NhanVien__c>();
+    
+       List<NhanVien__c> listitem = [select idnhanvien__c, TenNV__c, ChucVuNV__c,EmailNV__c from NhanVien__c ORDER BY idnhanvien__c];
+    
+        if(listitem.size() > 0)
+        {
+                NhanViens.addall(listitem);        
+        }    
+                  return NhanViens;
+   }
+    
+   
+}
