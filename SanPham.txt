@@ -1,0 +1,196 @@
+<apex:page standardController="NhanVien__c"  extensions="NVcontroller">
+    <html>
+    <head>
+        <meta charset="utf-8"/>
+        <style>
+        #main{v
+        width: 1000px;
+        height: 1200px;
+        border: 1px solid;
+    	}
+    
+        #header{
+            width: 1000px;
+            height: 150px;
+            background: 
+            text-align: left;
+            
+            border: 1px solid;
+        }
+        #menu{
+            width: 1000px;
+            height: 50px;
+            background-color:  #3b4d95;
+            text-align: left;
+            border: 1px solid;
+        }
+        
+        #section{
+            width: 700px;
+            height: auto;
+            list-style-type:none;
+            text-align: left;
+            float:left;
+            border: 1px solid;
+            
+        }
+       #left{
+            width: 297px;
+            height: auto
+            
+            list-style-type:none;
+            text-align: left;
+            float:left;
+            border: 1px solid;
+        }
+        #footer{
+            width: 1000px;
+            height: 30px;
+            float: left;
+            text-align: center;
+            background-color: blue;
+            border: 1px solid;
+            color: lightblue;
+            
+        }
+           .nav{
+	  list-style-type:none;
+      margin: auto;
+    }
+
+    .nav>li{
+        float: left;
+        margin-right: 0px;
+        background-color: #3b4d95;
+        border-radius:0px;
+    }
+
+    .nav>li>a{
+        text-transform: uppercase;
+        color: white;
+    }
+
+    .nav li a{
+        text-decoration: none;
+        font-weight: bold;
+    }
+
+    .nav li a:hover{
+        text-decoration: none;
+        color: black;
+        background-color: #445e91;
+    }
+
+    .nav li{
+        position: relative;
+    }
+
+    .nav li a{
+        padding: 15px;
+        line-height: 20px;
+        display: inline-block;
+    }
+
+    .nav .sub-menu{
+        display: none;
+        position: absolute;
+        top: 0;
+        left: 100%;
+        width: 200px;
+        background-color:#C0B7C5;
+        padding: 5px 20px;
+        list-style-type:none;
+        
+    }
+
+    .nav li:hover>.sub-menu{
+        display: inline-block;
+        background-color: #3b4d95;
+        width: 400px;
+    }
+
+    .nav>li>.sub-menu{
+        top: 50px;
+        left: 0;
+    }
+    
+    .nav ul li a{
+      color: white;
+      background-color: #3b4d95;
+    }
+        </style>
+    </head>
+    
+    <body>
+        <div id="main">
+            <div id="header">
+                <apex:image url="{!URLFOR($Resource.jQueryMobile2, 'images/phuongphap.jpg')}" width="1000px" height="150px"/>
+                
+            </div>
+            <div id="menu">
+                <ul class="nav">
+         
+                   
+                     
+                    <li>
+                      <a href="#">Trang chu?</a>
+                    </li>
+                     <li>
+                      <a href="https://c.ap5.visual.force.com/apex/DoAn?core.apexpages.request.devconsole=1">Danh sách nhân viên</a>
+                    </li>
+                    <li>
+                      <a href="#">B?ng phân công</a>
+                    </li>
+                     
+                </ul>
+                        </div>
+            <div id = "left">
+                <apex:form > 
+
+            <apex:pageBlock >
+                <apex:pageBlockSection columns="1">
+                   <apex:outputLabel value="Ma NV"></apex:outputLabel>
+                    <apex:inputText value="{!manv}"/>
+                    <apex:outputLabel value="Ten NV"></apex:outputLabel>
+                    <apex:inputText value="{!ten}"/>
+                    <apex:outputLabel value="Chuc vu"></apex:outputLabel>
+                    <apex:inputText value="{!cvu}"/>
+                    <apex:outputLabel value="Email NV"></apex:outputLabel>
+                    <apex:inputText value="{!mail}"/> 
+                </apex:pageBlockSection>
+
+                <apex:commandButton value="Thêm NV" action="{!themnv}"/>&nbsp;
+                <apex:commandButton value="Xóa NV" action="{!xoanv}"/>&nbsp;
+                <apex:commandButton value="S?a TTNV" action="{!suanv}"/>
+            </apex:pageBlock>
+                    
+        </apex:form>   
+        	
+            </div>
+            
+            <div id="section">
+                    <apex:form id="theForm">
+      
+        <apex:pageBlock title="Danh sách nhân viên" id="ds">
+            <apex:pageblocktable id="dsnv" rendered="{!showNhanViens}" value="{!RecordFetching}" var="nv">
+                
+               
+                <apex:column headerValue="ID" value="{!nv.idnhanvien__c}"/>
+                <apex:column headerValue="Ho ten" value="{!nv.TenNV__c}"/>
+                <apex:column headerValue="Chuc vu" value="{!nv.ChucVuNV__c}"/>
+                <apex:column headerValue="Email" value="{!nv.EmailNV__c}"/>
+            </apex:pageblocktable>  
+
+        </apex:pageBlock>
+   	 </apex:form>  
+            </div>
+            
+            
+            
+             <div id="footer">
+                Qu?n lý nhân viên: Bùi Nguy?n Minh Trung - Nguy?n Th? Thanh Th?o
+            </div>
+        </div>
+    </body>
+</html>
+</apex:page>
